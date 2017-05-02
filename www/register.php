@@ -1,4 +1,5 @@
 <?php
+$page_title = "Store:Admin register";
 
 include 'includes/header.php';
 
@@ -75,7 +76,6 @@ if (array_key_exists('register', $_POST)){
 
 ?>
 
-?>
 
 
 
@@ -142,7 +142,7 @@ if (array_key_exists('register', $_POST)){
 			<input type="submit" name="register" value="register">
 		</form>
 
-		<h4 class="jumpto">Have an account? <a href="login.php">login</a></h4>
+		<h4 class="jumpto">Have an account? <a href="admin_login.php">login</a></h4>
 	</div>
 
 
