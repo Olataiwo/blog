@@ -67,6 +67,7 @@
 				# return true plus extra information...
 				$result[] = true;
 				$result[] = $row['admin_id'];
+				$result[] = $row['firstname'];
 			}
 
 			return $result;
@@ -266,13 +267,38 @@
 			$result.='<td>'.$row['content'].'</td>';
 			$result.='<td>'.$row['admin_id'].'</td>';
 			$result.='<td>'.$row['date'].'</td>';
-			$result.='<td><a href = "archive.php?id='.$row['post_id'].'">Archive</a><td>';
-			$result.='<td><a href = "edit.php?id='.$row['post_id'].'">Edit</a><td>';
-			$result.='<td><a href = "delete.php?id='.$row['post_id'].'">Delete</a><td><tr>';
+			$result.='<td><a href = "archive_post.php?id='.$row['post_id'].'">Archive</a><td>';
+			$result.='<td><a href = "edit_post.php?id='.$row['post_id'].'">Edit</a><td>';
+			$result.='<td><a href = "delete_post.php?id='.$row['post_id'].'">Delete</a><td><tr>';
 
 			}
 
 			return $result;
+		}
+
+
+			public static function getPostByID($dbconn,$pid) {
+
+			$stmt = $dbconn->prepare("SELECT * FROM post WHERE post_id =:pid");
+			$stmt->bindParam(":pid", $pid);
+
+			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_BOTH);
+
+			return $row;
+
+		}
+
+			public static function updatePost($dbconn, $input) {
+			$stmt = $dbconn->prepare("UPDATE post SET title =:title, content =:content WHERE post_id =:pid");
+
+			$data = [
+				":title" => $input['title'],
+				":content" => $input['cnt'],
+				":pid" => $input['pid']
+			];
+
+			$stmt->execute($data);
 		}
 
 
