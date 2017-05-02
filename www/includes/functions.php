@@ -221,4 +221,34 @@
 		}
 
 
+		public static function getAdminByID($dbconn,$aid) {
+
+			$stmt = $dbconn->prepare("SELECT * FROM admin WHERE admin_id =:aid");
+			$stmt->bindParam(":aid", $aid);
+
+			$stmt->execute();
+			$row = $stmt->fetch(PDO::FETCH_BOTH);
+
+			return $row;
+
+		}
+
+		public static function addPost($dbconn,$input) {
+
+
+			$stmt = $dbconn->prepare("INSERT INTO post(admin_id, title, content, date) VALUES(:aid, :ti, :co, :d)");
+
+			$data = [
+
+				":aid" => $input['id'],
+				":ti"=> $input['title'],
+				":co"=> $input['cnt'],
+				":d"=> $input['date']
+
+			];
+
+			$stmt->execute($data);
+		}
+
+
 	}
