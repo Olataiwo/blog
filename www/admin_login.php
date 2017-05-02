@@ -4,6 +4,8 @@
 	# title
 	$title = "Store: Login";
 
+	
+
 	# include header
 	include 'includes/header.php';
 
@@ -37,7 +39,7 @@
 			$_SESSION['admin_id'] = $check[1];
 
 			# redirect
-			header("Location: add_category.php"); 
+			header("Location: add_post.php"); 
 		}
 	}
 ?>
