@@ -251,4 +251,31 @@
 		}
 
 
+		public static function viewPost($dbconn) {
+
+				$result = "";
+
+			$stmt = $dbconn->prepare("SELECT * FROM post") ;
+
+			$stmt->execute();
+
+			while($row = $stmt->fetch(PDO::FETCH_BOTH)) {;
+
+			$result.='<tr><td>'.$row['post_id'].'</td>';
+			$result.='<td>'.$row['title'].'</td>';
+			$result.='<td>'.$row['content'].'</td>';
+			$result.='<td>'.$row['admin_id'].'</td>';
+			$result.='<td>'.$row['date'].'</td>';
+			$result.='<td><a href = "archive.php?id='.$row['post_id'].'">Archive</a><td>';
+			$result.='<td><a href = "edit.php?id='.$row['post_id'].'">Edit</a><td>';
+			$result.='<td><a href = "delete.php?id='.$row['post_id'].'">Delete</a><td><tr>';
+
+			}
+
+			return $result;
+		}
+
+
+
+
 	}

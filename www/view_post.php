@@ -33,6 +33,15 @@
 					</tr>
 				</thead>
 				<tbody>
+
+				<?php 
+
+					$chk = Utils::viewPost($conn);
+
+					echo $chk;
+
+
+				 ?>
 					
 							
 
