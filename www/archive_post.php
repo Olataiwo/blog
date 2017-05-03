@@ -24,10 +24,14 @@ session_start();
 
 	}
 
+	$item = Utils::getPostbyID($conn,$postID);
 
-	Utils::addToArchive($conn,$postID);
+	
 
-	Utils::deletePost($conn,$postID);
+
+	Utils::addToArchive($conn,$item['post_id'],$item['date']);
+
+	//Utils::deletePost($conn,$postID);
 
 	header("Location:view_archive_post.php");
 

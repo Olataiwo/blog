@@ -4,7 +4,7 @@
 	# title
 	$title = "Store: Login";
 
-	
+
 
 	# include header
 	include 'includes/header.php';
@@ -37,6 +37,7 @@
 
 			# set sessions
 			$_SESSION['admin_id'] = $check[1];
+			$_SESSION['admin_name'] = $check[2];
 
 			# redirect
 			header("Location: add_post.php"); 

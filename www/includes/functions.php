@@ -311,15 +311,16 @@
 
 			public static function addToArchive($dbconn,$pid) {
 
-				$stmt = $dbconn->prepare("INSERT INTO archive WHERE post_id = :pid");
+				$stmt = $dbconn->prepare("INSERT INTO archive(post_id, date) SELECT post_id, date FROM post WHERE post_id = :pid");
 
-				$stmt->bindParam(":pid",$pid) ;
+				$stmt->bindParam(":pid", $pid) ;
+
 
 				$stmt->execute();
 			}
 
 
-			public static function showArchive($dbconn,$clean) {
+			public static function showArchive($dbconn) {
 
 				$result = "";
 
@@ -336,6 +337,8 @@
 				}
 
 				return $result;
+
+				
 			}
 
 
