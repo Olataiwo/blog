@@ -301,6 +301,45 @@
 			$stmt->execute($data);
 		}
 
+			public static function deletePost($dbconn, $pid) {
+			$stmt = $dbconn->prepare("DELETE FROM post WHERE post_id=:pid");
+			$stmt->bindParam(":pid", $pid);
+
+			$stmt->execute();
+		}
+
+
+			public static function addToArchive($dbconn,$pid) {
+
+				$stmt = $dbconn->prepare("INSERT INTO archive WHERE post_id = :pid");
+
+				$stmt->bindParam(":pid",$pid) ;
+
+				$stmt->execute();
+			}
+
+
+			public static function showArchive($dbconn,$clean) {
+
+				$result = "";
+
+				$stmt = $dbconn->prepare("SELECT * FROM archive") ;
+
+				$stmt->execute();
+
+				while($row = $stmt->fetch(PDO::FETCH_BOTH)) {
+
+					$result.='<tr><td>'.$row['archive_id'].'</td>';
+					$result.='<td>'.$row['post_id'].'</td>';
+					$result.='<td>'.$row['date'].'</td>';
+					$result.='<td><a href = "delete_archive.php?id='.$row['archive_id'].'">Delete</a><td><tr>';
+				}
+
+				return $result;
+			}
+
+
+
 
 
 
