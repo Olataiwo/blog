@@ -371,7 +371,7 @@
 
 				$result = "";
 
-				$stmt = $dbconn->prepare("SELECT DATE_FORMAT(date, '%Y,%M') AS d FROM archive" );
+				$stmt = $dbconn->prepare("SELECT DISTINCT DATE_FORMAT(date, '%Y,%M') AS d FROM archive" );
 
 				$stmt->execute();
 
