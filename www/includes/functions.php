@@ -342,6 +342,31 @@
 			}
 
 
+			public static function getPost($dbconn) {
+
+					
+				$result = "";
+
+				$stmt = $dbconn->prepare("SELECT * FROM post");
+
+				$stmt->execute();
+
+				while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+
+					$item = Utils::getAdminByID($dbconn,$row['admin_id']);
+
+					$result.='<h2 class="blog-post-title">'.$row['title'].'</h2>';
+            		$result.='<p class="blog-post-meta">'.$row['date'].' by <a href="#">'.$item['firstname'].'</a></p>';
+            		$result.=htmlspecialchars_decode($row['content']);
+
+
+				}
+
+				return $result;
+
+			}
+
+
 
 
 
