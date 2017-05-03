@@ -367,6 +367,24 @@
 			}
 
 
+			public static function getArchive($dbconn) {
+
+				$result = "";
+
+				$stmt = $dbconn->prepare("SELECT DATE_FORMAT(date, '%Y,%M') AS d FROM archive" );
+
+				$stmt->execute();
+
+				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+			  	$result.='<ol class="list-unstyled"><li><a href="#">'.$row['d'].'</a></li></ol>';
+              
+				}
+
+				return $result;
+			}
+
+
 
 
 
