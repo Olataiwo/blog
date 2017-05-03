@@ -371,14 +371,38 @@
 
 				$result = "";
 
-				$stmt = $dbconn->prepare("SELECT DISTINCT DATE_FORMAT(date, '%Y,%M') AS d FROM archive" );
+				$stmt = $dbconn->prepare("SELECT DISTINCT DATE_FORMAT(date, '%Y,%M') AS d, date FROM archive" );
 
 				$stmt->execute();
 
 				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
-			  	$result.='<ol class="list-unstyled"><li><a href="#">'.$row['d'].'</a></li></ol>';
+			  	$result.='<ol class="list-unstyled"><li><a href="archives.php?id='.$row['date'].'">'.$row['d'].'</a></li></ol>';
               
+				}
+
+				return $result;
+			}
+
+
+			public static function revealArchive ($dbconn,$dt) {
+
+				$result = "";
+
+				$stmt = $dbconn->prepare("SELECT * FROM post WHERE date = :pid");
+
+				$stmt->bindParam(":pid",$dt);
+
+				$stmt->execute();
+
+				while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+					$item = Utils::getAdminByID($dbconn,$row['admin_id']);
+
+					$result.='<h2 class="blog-post-title">'.$row['title'].'</h2>';
+            		$result.='<p class="blog-post-meta">'.$row['date'].' by <a href="#">'.$item['firstname'].'</a></p>';
+            		$result.=htmlspecialchars_decode($row['content']);
+
 				}
 
 				return $result;
